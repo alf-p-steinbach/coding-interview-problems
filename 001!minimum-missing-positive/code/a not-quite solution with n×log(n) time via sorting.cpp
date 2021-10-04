@@ -1,9 +1,12 @@
 ﻿// Note: due to the sorting this code is O(n log n), whereas the problem requires O(n).
 //
-#include <kickstart+main.hpp>
+#include "testing.hpp"
+
+#include <algorithm>
+#include <vector>
 using std::vector, std::sort;
 
-auto smallest_positive_not_in( vector<int>& numbers )
+auto problem::first_missing_positive_in( vector<int> numbers )
     -> int
 {
     sort( numbers.begin(), numbers.end() );
@@ -16,9 +19,4 @@ auto smallest_positive_not_in( vector<int>& numbers )
     return x + 1;
 }
 
-void cpp_main()
-{
-    using namespace kickstart::all;
-    auto numbers = parts_to_vector_<int>( string( input( "Numbers? " ) ) );
-    out << smallest_positive_not_in( numbers ) << endl;
-}
+auto main() -> int { return testing::main( problem::tests() ); }
