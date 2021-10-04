@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdlib.h>     // EXIT_...
 
 #include <iomanip>
