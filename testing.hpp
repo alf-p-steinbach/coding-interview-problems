@@ -5,13 +5,13 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-using   std::setw,                              // <iomanip>
-        std::cout, std::cerr, std::endl,        // <iostream>
-        std::exception, std::runtime_error,     // <stdexcept>
-        std::string, std::to_string,            // <string>
-        std::vector;                            // <vector>
-
 namespace testing {
+    using   std::setw,                              // <iomanip>
+            std::cout, std::cerr, std::endl,        // <iostream>
+            std::exception, std::runtime_error,     // <stdexcept>
+            std::string, std::to_string,            // <string>
+            std::vector;                            // <vector>
+
     template< class Value >
     inline auto to_string( const vector<Value>& values )
         -> string
