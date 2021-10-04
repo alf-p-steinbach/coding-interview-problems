@@ -29,6 +29,14 @@ auto problem::first_missing_positive_in( vector<int> numbers )
 auto main() -> int { return testing::main( problem::tests() ); }
 ~~~
 
+The testing checks and reports the results for the following array contents:
+
+| Test ID: | Numbers in array:|Correct result:|
+|---------:|----------------:|--------------:|
+|       #1 |3  4  −1  1      |             2 |
+|       #2 | 1  2  0        |             3 |
+|       #3 | 1  4  5  1  2  |             3 |
+
 
 ## Discussion.
 
@@ -71,7 +79,7 @@ It’s difficult and time-consuming to test the big-O behavior so the simple tes
 > All tests completed successfully.
 > ~~~
 
-But of course, O(n log n) time won’t do.
+But O(n log n) time won’t do.
 
 ---
 
