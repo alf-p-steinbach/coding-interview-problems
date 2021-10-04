@@ -9,7 +9,7 @@ The wording below is my attempt at avoiding the interpretation problems noted in
 
 ## Problem.
 
-***Given an array (e.g. a C++ `std::vector`) of integers, use linear time and constant space to find the first positive integer that’s not present. The array can contain duplicates and negative numbers, and the numbers can be in any arbitrary order. You can modify the input array in-place.***
+***Given an array (e.g. a C++ `std::vector`) of integers, use linear time and constant extra space to find the first positive integer that’s not present. The array can contain duplicates, zeroes and negative numbers, and the numbers can be in any arbitrary order. You can modify the input array in-place.***
 
 ## C++ framework for solution and testing.
 
@@ -32,4 +32,47 @@ auto main() -> int { return testing::main( problem::tests() ); }
 
 ## Discussion.
 
+Except for the linear time requirement a solution would be simple: sort the array, then scan the array and count up for each positive number that’s not a duplicate of the previous one. A duplicate is equal to the current count (before counting up), so those numbers should be ignored. When the count after counting up, isn't the same as the number in the array, that's the first positive number missing.
 
+Expressed in C++:
+
+*a not-quite solution with n×log(n) time via sorting.cpp*
+~~~cpp
+// Note: due to the sorting this code is O(n log n), whereas the problem requires O(n).
+//
+#include "testing.hpp"
+#include <algorithm>
+using std::vector, std::sort;
+
+auto problem::first_missing_positive_in( vector<int> numbers )
+    -> int
+{
+    sort( numbers.begin(), numbers.end() );
+    int x = 0;
+    for( const int v: numbers ) {
+        if( v <= 0 or v == x ) { continue; }
+        ++x;
+        if( v > x ) { return x; }
+    }
+    return x + 1;
+}
+
+auto main() -> int { return testing::main( problem::tests() ); }
+~~~
+
+It’s difficult and time-consuming to test the big-O behavior so the simple test framework provided here, reports success:
+
+> ~~~txt
+>     Id     E     A      (where E is Expected and A is Actual)
+>     #1     2     2    ok {3, 4, -1, 1}
+>     #2     3     3    ok {1, 2, 0}
+>     #3     3     3    ok {1, 4, 5, 1, 2}
+> 
+> All tests completed successfully.
+> ~~~
+
+But of course, O(n log n) time won’t do.
+
+---
+
+asd

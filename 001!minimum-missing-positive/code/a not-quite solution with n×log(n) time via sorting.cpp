@@ -2,7 +2,6 @@
 //
 #include "testing.hpp"
 #include <algorithm>
-#include <vector>
 using std::vector, std::sort;
 
 auto problem::first_missing_positive_in( vector<int> numbers )
