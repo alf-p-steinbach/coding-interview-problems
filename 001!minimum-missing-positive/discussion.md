@@ -18,7 +18,6 @@ You can use the following template for testing a C++ solution as a file in the â
 *your-solution.cpp*
 ~~~cpp
 #include "testing.hpp"
-#include <vector>
 using std::vector;      // Maybe more.
 
 auto problem::first_missing_positive_in( vector<int> numbers )
