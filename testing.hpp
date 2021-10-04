@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+
 namespace testing {
     using   std::setw,                              // <iomanip>
             std::cout, std::cerr, std::endl,        // <iostream>
