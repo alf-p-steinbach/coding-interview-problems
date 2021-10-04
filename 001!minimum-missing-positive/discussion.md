@@ -13,7 +13,7 @@ The wording below is my attempt at avoiding the interpretation problems noted in
 
 ## C++ framework for solution and testing.
 
-You can use the following template for testing your C++ solution as a file in the “code” folder:
+You can use the following template for testing a C++ solution as a file in the “code” folder:
 
 *your-solution.cpp*
 ~~~cpp
