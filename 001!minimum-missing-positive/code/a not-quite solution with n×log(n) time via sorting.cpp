@@ -1,7 +1,6 @@
 ﻿// Note: due to the sorting this code is O(n log n), whereas the problem requires O(n).
 //
 #include "testing.hpp"
-
 #include <algorithm>
 #include <vector>
 using std::vector, std::sort;

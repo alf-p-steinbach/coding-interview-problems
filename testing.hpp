@@ -43,14 +43,16 @@ namespace testing {
         Id              first_fail                  = {};
         Result          first_fail_expected_result  = {};
         Result          first_fail_actual_result    = {};
-        out << w6 << "Id" << w6 << "E" << w6 << "A" << endl;
+        out << w6 << "Id" << w6 << "E" << w6 << "A" << w6 << ""
+            << "(where E is Expected and A is Actual)"
+            << endl;
         for( const Test_case& test: tests ) {
             const Result result = test.actual_result();
             out << w6 << ("#" + to_string( test.id ))
                 << w6 << test.expected_result
                 << w6 << result
                 << w6 << (result == test.expected_result? "ok" : "FAIL")
-                << "  " << to_string( test.data )
+                << " " << to_string( test.data )
                 << endl;
             if( first_fail == 0 and result != test.expected_result ) {
                 failure = true;
@@ -60,12 +62,14 @@ namespace testing {
             }
         }
 
+        out << endl;
         if( failure ) {
-            out << endl;
             out << "!Test case #" << to_string( first_fail ) << " failed:"
                 << " expected " << to_string( first_fail_expected_result )
-                << " but got actual " << to_string( first_fail_actual_result )
+                << " but got actual result " << to_string( first_fail_actual_result )
                 << "." << endl;
+        } else {
+            out << "All tests completed successfully." << endl;
         }
         return not failure;
     }

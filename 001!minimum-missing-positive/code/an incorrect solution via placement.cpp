@@ -1,14 +1,11 @@
-﻿// Note: this attempted solution fails in some cases.
+﻿// Note: this attempted solution fails e.g. for input (1 4 5 1 2).
 //
 #include "testing.hpp"
-
-#include <kickstart.hpp>
+#include <kickstart.hpp>        // https://github.com/progrock-libraries/kickstart
 namespace ks = kickstart::all;
 using std::vector, std::string, std::swap, std::partition;
 
 auto is_positive( const int x ) -> bool { return (x > 0); };
-
-// 1 4 5 1 2
 
 auto problem::first_missing_positive_in( vector<int> numbers )
     -> int
