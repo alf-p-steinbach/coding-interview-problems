@@ -15,7 +15,7 @@ The wording below is my attempt at avoiding the interpretation problems noted in
 
 You can use the following template for testing a C++ solution as a file in the “code” folder:
 
-*your-solution.cpp*
+*“your-solution.cpp”*
 ~~~cpp
 #include "testing.hpp"
 using std::vector;      // Maybe more.
@@ -38,13 +38,13 @@ The testing checks and reports the results for the following array contents:
 |       #3 | 1  4  5  1  2  |             3 |
 
 
-## Discussion.
+## Discussion and a solution.
 
 Except for the linear time requirement a solution would be simple: sort the array, then scan the array and count up for each positive number that’s not a duplicate of the previous one. A duplicate is equal to the current count (before counting up), so those numbers should be ignored. When the count after counting up, isn't the same as the number in the array, that's the first positive number missing.
 
 Expressed in C++:
 
-*a not-quite solution with n×log(n) time via sorting.cpp*
+*“a not-quite solution with n×log(n) time via sorting.cpp“*
 ~~~cpp
 // Note: due to the sorting this code is O(n log n), whereas the problem requires O(n).
 //
@@ -76,10 +76,9 @@ It’s difficult and time-consuming to test the big-O behavior so the simple tes
 >     #2     3     3    ok {1, 2, 0}
 >     #3     3     3    ok {1, 4, 5, 1, 2}
 > 
-> All tests completed successfully.
-> ~~~
+> All tests completed successfully. ~~~
 
-But O(n log n) time won’t do.
+But O(*n* log *n*) time won’t do.
 
 ---
 
