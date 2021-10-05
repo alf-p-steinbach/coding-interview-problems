@@ -1,10 +1,10 @@
-﻿// Note: due to the sorting this code is O(n log n), whereas the problem requires O(n).
+﻿// Due to the sorting this code is O(n log n), whereas the problem requires O(n).
 //
 #include "testing.hpp"
 #include <algorithm>
 using std::vector, std::sort;
 
-auto problem::first_missing_positive_in( vector<int> numbers )
+auto problem::first_missing_positive_in( vector<int>& numbers )
     -> int
 {
     sort( numbers.begin(), numbers.end() );

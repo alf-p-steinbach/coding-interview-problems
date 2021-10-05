@@ -1,4 +1,5 @@
 #pragma once
+#include "utility.hpp"
 
 #include <stdlib.h>     // EXIT_...
 
@@ -9,25 +10,13 @@
 #include <vector>
 
 namespace testing {
+    using utility::to_string;
+
     using   std::setw,                              // <iomanip>
             std::cout, std::cerr, std::endl,        // <iostream>
             std::exception, std::runtime_error,     // <stdexcept>
             std::string, std::to_string,            // <string>
             std::vector;                            // <vector>
-
-    template< class Value >
-    inline auto to_string( const vector<Value>& values )
-        -> string
-    {
-        string result = "{";
-        for( const Value& v: values ) {
-            if( &v != &values.front() ) { result += ", "; }
-            using std::to_string;
-            result += to_string( v );
-        }
-        result += "}";
-        return result;
-    }
 
     template< class Test_case >
     inline auto run( const vector<Test_case>& tests )
@@ -40,7 +29,7 @@ namespace testing {
         using Id        = typename Test_case::Id;
         using Result    = typename Test_case::Result;
         using Data      = typename Test_case::Data;
-        using testing::to_string, std::to_string;
+        using utility::to_string, std::to_string;
 
         bool            failure                     = false;
         Id              first_fail                  = {};

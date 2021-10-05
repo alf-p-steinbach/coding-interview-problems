@@ -20,7 +20,7 @@ You can use the following template for testing a C++ solution as a file in the �
 #include "testing.hpp"
 using std::vector;      // Maybe more.
 
-auto problem::first_missing_positive_in( vector<int> numbers )
+auto problem::first_missing_positive_in( vector<int>& numbers )
     -> int
 {
     // YOUR SOLUTION CODE HERE.
@@ -46,13 +46,13 @@ Expressed in C++:
 
 *“a not-quite solution with n×log(n) time via sorting.cpp“*
 ~~~cpp
-// Note: due to the sorting this code is O(n log n), whereas the problem requires O(n).
+// Due to the sorting this code is O(n log n), whereas the problem requires O(n).
 //
 #include "testing.hpp"
 #include <algorithm>
 using std::vector, std::sort;
 
-auto problem::first_missing_positive_in( vector<int> numbers )
+auto problem::first_missing_positive_in( vector<int>& numbers )
     -> int
 {
     sort( numbers.begin(), numbers.end() );
@@ -79,7 +79,7 @@ It’s difficult and time-consuming to test the big-O behavior so the simple tes
 > All tests completed successfully.
 >~~~
 
-O(*n*×log *n*) time won’t do for a solution. However, the above is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever you throw at it. And so this code can be used as *a reference* for testing other solution attempts.
+O(*n*×log *n*) time won’t do for a solution. However, the above is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever data you throw at it. And so this code can be used as *a reference* for testing and gaining confidence in other solution attempts.
 
 Also, the problem can now be reframed in terms of this code, namely to provide the exact same effect as this code in all cases, but in O(*n*) time with only O(1) extra storage. Which clarifies what the real problem is. O(*n*) time.
 
