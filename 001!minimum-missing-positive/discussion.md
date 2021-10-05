@@ -79,8 +79,9 @@ It’s difficult and time-consuming to test the big-O behavior so the simple tes
 > All tests completed successfully.
 >~~~
 
+O(*n*×log *n*) time won’t do for a solution. However, the above is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever you throw at it. And so this code can be used as *a reference* for testing other solution attempts.
 
-But O(*n* log *n*) time won’t do.
+Also, the problem can now be reframed in terms of this code, namely to provide the exact same effect as this code in all cases, but in O(*n*) time with only O(1) extra storage. Which clarifies what the real problem is. O(*n*) time.
 
 ---
 
