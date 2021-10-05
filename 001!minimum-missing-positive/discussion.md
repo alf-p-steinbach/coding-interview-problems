@@ -70,13 +70,15 @@ auto main() -> int { return testing::main( problem::tests() ); }
 
 It’s difficult and time-consuming to test the big-O behavior so the simple test framework provided here, reports success:
 
-> ~~~txt
+>~~~txt
 >     Id     E     A      (where E is Expected and A is Actual)
 >     #1     2     2    ok {3, 4, -1, 1}
 >     #2     3     3    ok {1, 2, 0}
 >     #3     3     3    ok {1, 4, 5, 1, 2}
 > 
-> All tests completed successfully. ~~~
+> All tests completed successfully.
+>~~~
+
 
 But O(*n* log *n*) time won’t do.
 
