@@ -40,7 +40,7 @@ The testing checks and reports the results for the following array contents:
 |       #7 |              3 | 1  4  5  1  2    |
 
 
-## Discussion, with two solutions.
+## Discussion with a “not the intended” solution.
 
 Except for the linear time requirement a solution would be simple: sort the array, then scan the array and count up for each positive number that’s not a duplicate of the previous one. A duplicate is equal to the current count (before counting up), so those numbers should be ignored. When the count after counting up, isn't the same as the number in the array, that's the first positive number missing.
 
