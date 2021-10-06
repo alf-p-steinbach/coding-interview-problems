@@ -22,24 +22,22 @@ using std::vector;
 
 auto problem::first_missing_positive_in( vector<int>& numbers )
     -> int
-{
-    // YOUR SOLUTION CODE HERE.
-}
+{ /* YOUR SOLUTION CODE HERE. */ }
 
 auto main() -> int { return testing::main( problem::tests() ); }
 ~~~
 
 The testing checks and reports the results for the following array contents:
 
-| Test ID: | Numbers in array:| Correct result:|
-|---------:|-----------------:|---------------:|
-|       #1 |           *none* |              1 |
-|       #2 | 0  −1  0  −2  −3 |              1 |
-|       #3 |                1 |              2 |
-|       #4 |    1  2  3  4  5 |              6 |
-|       #5 |      3  4  −1  1 |              2 |
-|       #6 |          1  2  0 |              3 |
-|       #7 |    1  4  5  1  2 |              3 |
+| Test ID: | Correct result:| Numbers in array:|
+|---------:|---------------:|:-----------------|
+|       #1 |              1 | *none*           |
+|       #2 |              1 | 0  −1  0  −2  −3 |
+|       #3 |              2 | 1                |
+|       #4 |              6 | 1  2  3  4  5    |
+|       #5 |              2 | 3  4  −1  1      |
+|       #6 |              3 | 1  2  0          |
+|       #7 |              3 | 1  4  5  1  2    |
 
 
 ## Discussion and a solution.
