@@ -22,7 +22,7 @@ namespace testing {
 
     template< class Test_case >
     inline auto run( const vector<Test_case>& tests )
-        -> bool
+        -> typename Test_case::Id
     {
         auto& out = cout;
         const auto w6 = setw( 6 );
@@ -33,10 +33,10 @@ namespace testing {
         using Data      = remove_const_t<decltype( Test_case::data )>;
         using utility::to_string, std::to_string;
 
-        bool            failure                     = false;
-        Id              first_fail                  = {};
-        Result          first_fail_expected_result  = {};
-        Result          first_fail_actual_result    = {};
+        bool    failure                     = false;
+        Id      first_fail                  = {};
+        Result  first_fail_expected_result  = {};
+        Result  first_fail_actual_result    = {};
         out << w6 << "Id" << w6 << "E" << w6 << "A" << w6 << ""
             << "(where E is Expected and A is Actual)"
             << endl;
@@ -57,7 +57,7 @@ namespace testing {
         }
 
         out << endl;
-        if( failure ) {
+        if( !!first_fail ) {
             out << "!Test case #" << to_string( first_fail ) << " failed:"
                 << " expected " << to_string( first_fail_expected_result )
                 << " but got actual result " << to_string( first_fail_actual_result )
@@ -65,7 +65,7 @@ namespace testing {
         } else {
             out << "All tests completed successfully." << endl;
         }
-        return not failure;
+        return first_fail;
     }
 
     template< class Test_case >
@@ -73,8 +73,8 @@ namespace testing {
         -> int
     {
         try {
-            const bool ok = run( tests );
-            return (ok? EXIT_SUCCESS : EXIT_FAILURE);
+            const typename Test_case::Id id_of_first_fail = run( tests );
+            return -id_of_first_fail;
         } catch( const exception& x ) {
             cerr << "!" << x.what() << endl;
         }

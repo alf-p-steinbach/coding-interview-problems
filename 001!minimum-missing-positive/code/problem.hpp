@@ -5,7 +5,6 @@
 // can modify the input array in-place.
 
 #include "../../common-code/utility.hpp"    // temp_ref, copy_of
-#include <vector>
 
 namespace problem {
     using std::vector;
