@@ -7,6 +7,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace testing {
@@ -16,6 +17,7 @@ namespace testing {
             std::cout, std::cerr, std::endl,        // <iostream>
             std::exception, std::runtime_error,     // <stdexcept>
             std::string, std::to_string,            // <string>
+            std::remove_const_t,                    // type_traits
             std::vector;                            // <vector>
 
     template< class Test_case >
@@ -27,8 +29,8 @@ namespace testing {
         using X = runtime_error;
 
         using Id        = typename Test_case::Id;
-        using Result    = typename Test_case::Result;
-        using Data      = typename Test_case::Data;
+        using Result    = remove_const_t<decltype( Test_case::expected_result )>;
+        using Data      = remove_const_t<decltype( Test_case::data )>;
         using utility::to_string, std::to_string;
 
         bool            failure                     = false;

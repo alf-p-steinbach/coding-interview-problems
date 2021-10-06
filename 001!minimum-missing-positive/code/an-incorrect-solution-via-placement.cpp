@@ -7,7 +7,7 @@ using std::vector, std::string, std::swap, std::partition;
 
 auto is_positive( const int x ) -> bool { return (x > 0); };
 
-auto problem::first_missing_positive_in( vector<int> numbers )
+auto problem::first_missing_positive_in( vector<int>& numbers )
     -> int
 {
     const auto it_beyond_positives = partition( numbers.begin(), numbers.end(), is_positive );
@@ -21,7 +21,7 @@ auto problem::first_missing_positive_in( vector<int> numbers )
         }
     }
     
-    // If there is now an index i without value i + 1, well that's it.
+    // If there is now an index i without value i + 1, well (one believes that) that's it.
     for( const int& v: positive_numbers ) {
         const int i = int( &v - &numbers[0] );
         if( v != i + 1 ) {

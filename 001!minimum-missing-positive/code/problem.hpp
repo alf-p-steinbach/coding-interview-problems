@@ -11,13 +11,14 @@ namespace problem {
     using std::vector;
     using utility::copy_of, utility::temp_ref_to;
 
-    extern auto first_missing_positive_in( vector<int>& numbers ) -> int;   // YOUR CODE.
+    using Result    = int;
+    using Data      = vector<int>;
+
+    extern auto first_missing_positive_in( Data& numbers ) -> Result;   // YOUR CODE.
 
     struct Test_case
     {
         enum Id: int {};
-        using Result    = int;
-        using Data      = vector<int>;
 
         const Id        id;
         const Result    expected_result;
@@ -27,15 +28,18 @@ namespace problem {
             -> Result
         { return first_missing_positive_in( temp_ref_to( copy_of( data ) ) ); } 
     };
-    
+
     inline auto tests() -> const vector<Test_case>&
     {
-        using Tc = Test_case;
         static const vector<Test_case> the_tests =
         {
-            { Tc::Id( 1 ), Tc::Result( 2 ), Tc::Data{ 3, 4, -1, 1 } },
-            { Tc::Id( 2 ), Tc::Result( 3 ), Tc::Data{ 1, 2, 0 } },
-            { Tc::Id( 3 ), Tc::Result( 3 ), Tc::Data{ 1, 4, 5, 1, 2 } },
+            { Test_case::Id( 1 ), Result( 1 ), Data{} },
+            { Test_case::Id( 2 ), Result( 1 ), Data{ 0, -1, 0, -2, -3 } },
+            { Test_case::Id( 3 ), Result( 2 ), Data{ 1 } },
+            { Test_case::Id( 4 ), Result( 6 ), Data{ 1, 2, 3, 4, 5 } },
+            { Test_case::Id( 5 ), Result( 2 ), Data{ 3, 4, -1, 1 } },
+            { Test_case::Id( 6 ), Result( 3 ), Data{ 1, 2, 0 } },
+            { Test_case::Id( 7 ), Result( 3 ), Data{ 1, 4, 5, 1, 2 } },
             // ADD MORE TEST CASES IF DESIRED
         };
         return the_tests;

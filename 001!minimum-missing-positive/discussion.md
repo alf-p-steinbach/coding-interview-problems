@@ -18,7 +18,7 @@ You can use the following template for testing a C++ solution as a file in the �
 *“your-solution.cpp”*
 ~~~cpp
 #include "testing.hpp"
-using std::vector;      // Maybe more.
+using std::vector;
 
 auto problem::first_missing_positive_in( vector<int>& numbers )
     -> int
@@ -31,20 +31,24 @@ auto main() -> int { return testing::main( problem::tests() ); }
 
 The testing checks and reports the results for the following array contents:
 
-| Test ID: | Numbers in array:|Correct result:|
-|---------:|----------------:|--------------:|
-|       #1 |3  4  −1  1      |             2 |
-|       #2 | 1  2  0        |             3 |
-|       #3 | 1  4  5  1  2  |             3 |
+| Test ID: | Numbers in array:| Correct result:|
+|---------:|-----------------:|---------------:|
+|       #1 |           *none* |              1 |
+|       #2 | 0  −1  0  −2  −3 |              1 |
+|       #3 |                1 |              2 |
+|       #4 |    1  2  3  4  5 |              6 |
+|       #5 |      3  4  −1  1 |              2 |
+|       #6 |          1  2  0 |              3 |
+|       #7 |    1  4  5  1  2 |              3 |
 
 
 ## Discussion and a solution.
 
-Except for the linear time requirement a solution would be simple: sort the array, then scan the array and count up for each positive number that’s not a duplicate of the previous one. A duplicate is equal to the current count (before counting up), so those numbers should be ignored. When the count after counting up, isn't the same as the number in the array, that's the first positive number missing.
+Except for the linear time requirement a solution would be simple: sort the array  then scan the array and count up for each positive number that’s not a duplicate of the previous one. A duplicate is equal to the current count (before counting up), so those numbers should be ignored. When the count after counting up, isn't the same as the number in the array, that's the first positive number missing.
 
 Expressed in C++:
 
-*“a not-quite solution with n×log(n) time via sorting.cpp“*
+*“a-not-quite-solution-with-n×log(n)-time-via-sorting.cpp“*
 ~~~cpp
 // Due to the sorting this code is O(n log n), whereas the problem requires O(n).
 //
@@ -68,20 +72,24 @@ auto problem::first_missing_positive_in( vector<int>& numbers )
 auto main() -> int { return testing::main( problem::tests() ); }
 ~~~
 
-It’s difficult and time-consuming to test the big-O behavior so the simple test framework provided here, reports success:
+The simple test framework provided here doesn’t test the big-O behavior, so it reports success:
 
 >~~~txt
->     Id     E     A      (where E is Expected and A is Actual)
->     #1     2     2    ok {3, 4, -1, 1}
->     #2     3     3    ok {1, 2, 0}
->     #3     3     3    ok {1, 4, 5, 1, 2}
-> 
-> All tests completed successfully.
+>    Id     E     A      (where E is Expected and A is Actual)
+>    #1     1     1    ok {}
+>    #2     1     1    ok {0, -1, 0, -2, -3}
+>    #3     2     2    ok {1}
+>    #4     6     6    ok {1, 2, 3, 4, 5}
+>    #5     2     2    ok {3, 4, -1, 1}
+>    #6     3     3    ok {1, 2, 0}
+>    #7     3     3    ok {1, 4, 5, 1, 2}
+>
+>All tests completed successfully.
 >~~~
 
-O(*n*×log *n*) time won’t do for a solution. However, the above is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever data you throw at it. And so this code can be used as *a reference* for testing and gaining confidence in other solution attempts.
+&Omicron;( *n*×log *n* ) time won’t do for a solution. But the above code is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever data you throw at it. And so this code ***can be used as a reference*** for testing and gaining confidence in other solution attempts, for example for testing with longer sequences of dynamically generated random numbers.
 
-Also, the problem can now be reframed in terms of this code, namely to provide the exact same effect as this code in all cases, but in O(*n*) time with only O(1) extra storage. Which clarifies what the real problem is. O(*n*) time.
+This is a general technique for big O challenges.
 
 ---
 
