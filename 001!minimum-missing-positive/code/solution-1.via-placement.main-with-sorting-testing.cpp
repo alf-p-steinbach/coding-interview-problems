@@ -35,6 +35,7 @@ auto main() -> int
             if( missing != n + 1 ) {
                 cerr    << "!Expected " << n + 1 << " but got " << missing
                         << " sequence " << to_string( permutation ) << "." << endl;
+                return EXIT_FAILURE;
             }
         } while( next_permutation( RANGE( permutation ) ) );
     }
