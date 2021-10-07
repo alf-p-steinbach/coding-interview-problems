@@ -9,9 +9,6 @@ using   std::is_sorted, std::next_permutation,  // <algorithm>
         std::string,                            // <string>
         std::vector;                            // <vector>
 
-// auto problem::first_missing_positive_in( vector<int>& numbers )
-//     -> int
-
 #define RANGE( c )      c.begin(), c.end()
 
 auto main() -> int
