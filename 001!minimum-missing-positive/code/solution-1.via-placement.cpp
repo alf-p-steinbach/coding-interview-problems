@@ -1,6 +1,4 @@
-﻿// Note: this attempted solution fails e.g. for input (1 4 5 1 2).
-//
-#include "testing.hpp"
+﻿#include "testing.hpp"
 #include <algorithm>
 #include <utility>
 
@@ -39,5 +37,3 @@ auto problem::first_missing_positive_in( vector<int>& numbers )
     const int n =  static_cast<int>( numbers.size() );
     return n + 1;
 }
-
-auto main() -> int { return testing::main( problem::tests() ); }

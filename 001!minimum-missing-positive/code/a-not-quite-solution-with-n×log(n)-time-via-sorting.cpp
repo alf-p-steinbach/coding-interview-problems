@@ -16,5 +16,3 @@ auto problem::first_missing_positive_in( vector<int>& numbers )
     }
     return x + 1;
 }
-
-auto main() -> int { return testing::main( problem::tests() ); }

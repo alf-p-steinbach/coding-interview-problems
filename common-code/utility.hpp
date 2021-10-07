@@ -1,7 +1,9 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <stdlib.h>     // EXIT_...
+
+#include <string>       // std::string
+#include <vector>       // std::vector
 
 namespace utility {
     using   std::string,        // <string>
@@ -26,5 +28,4 @@ namespace utility {
         result += "}";
         return result;
     }
-
 }  // namespace utility

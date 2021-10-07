@@ -27,6 +27,8 @@ auto problem::first_missing_positive_in( vector<int>& numbers )
 auto main() -> int { return testing::main( problem::tests() ); }
 ~~~
 
+Or you can omit the definition of `main` and just compile and link in “main-for-testing.cpp”, which provides exactly the above `main` function.
+
 The testing checks and reports the results for the following array contents:
 
 | Test ID: | Correct result:| Numbers in array:|
@@ -66,8 +68,6 @@ auto problem::first_missing_positive_in( vector<int>& numbers )
     }
     return x + 1;
 }
-
-auto main() -> int { return testing::main( problem::tests() ); }
 ~~~
 
 The simple test framework provided here doesn’t test the big-O behavior, so it reports success:
