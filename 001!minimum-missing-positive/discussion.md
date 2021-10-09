@@ -91,7 +91,7 @@ This is a general technique for big O challenges.
 
 ---
 
-A first step towards O(*n*) is to remove the noise, namely the possible negative numbers:
+A first step towards O(*n*) is to remove the noise, namely the possible zeroes and negative numbers:
 
 ~~~cpp
 const auto it_end = remove_if( numbers.begin(), numbers.end(), is_not_positive );
