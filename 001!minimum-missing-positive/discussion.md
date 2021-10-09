@@ -85,10 +85,27 @@ The simple test framework provided here doesn’t test the big-O behavior, so it
 >All tests completed successfully.
 >~~~
 
-&Omicron;( *n*×log *n* ) time won’t do for a solution. But the above code is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever data you throw at it. And so this code ***can be used as a reference*** for testing and gaining confidence in other solution attempts, for example for testing with longer sequences of dynamically generated random numbers.
+O(*n*×log *n*) time won’t do for a solution. But the above code is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever data you throw at it. And so this code ***can be used as a reference*** for testing and gaining confidence in other solution attempts, for example for testing with longer sequences of dynamically generated random numbers.
 
 This is a general technique for big O challenges.
 
 ---
+
+A first step towards O(*n*) is to remove the noise, namely the possible negative numbers:
+
+~~~cpp
+const auto it_end = remove_if( numbers.begin(), numbers.end(), is_not_positive );
+numbers.erase( it_end, numbers.end() );
+~~~
+
+It would be nice if also the noise of possible duplicates could be removed, but when one’s limited to O(1) extra storage that requires sorting (e.g., `std::unique` operates on a sorted sequence), which is generally O(*n*×log *n*).
+
+But wait! Sorting can be faster the more one knows about the data. For example, if one knows that the data is already sorted, then sorting is an O(1) operation. And here, except for the O(1) requirement on extra storage, the integers (or data with keys) 1 through *n*, in some arbitrary order, can be sorted in O(*n*) time by simply placing each value *v* at index *v* in a 1 based array. Or in C++, more naturally, at index *v*−1 in a 0 based array.
+
+Can that also be done in-place in the original data array?
+
+One idea for that is to scan through the array and just `swap` each encountered number into its proper place in the array. And then, if that results in the numbers 1 through *n* in sequence, then the first missing positive number is *n*+1. And otherwise it’s the first that’s missing within or before the sequence.
+
+***This idea is subtly incorrect***, but I posted code equivalent to the following in the belief that it had to be correct since it was simple and “worked” for the examples in the original question, test cases #5 and #6 here:
 
 asd
