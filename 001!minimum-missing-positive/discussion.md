@@ -147,7 +147,7 @@ auto problem::first_missing_positive_in( vector<int>& numbers )
 }
 ~~~
 
-The last of the tests here is was the first I found where the above code fails:
+The last of the tests here is included because it was the first I found where the above code fails:
 
 >~~~txt
 >    Id     E     A      (where E is Expected and A is Actual)
