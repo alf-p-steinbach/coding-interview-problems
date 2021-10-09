@@ -114,7 +114,7 @@ One idea for that is to scan through the array and just `swap` each encountered 
 //
 #include "testing.hpp"
 #include <algorithm>
-using   std::swap, std::remove_if,      // <algorithm>
+using   std::remove_if, std::swap,      // <algorithm>
         std::vector,                    // <vector>
         std::string;                    // <string>
 
@@ -162,7 +162,125 @@ The last of the tests here is included because it was the first I found where th
 >!Test case #7 failed: expected 3 but got actual result 2.
 >~~~
 
-Test case #7 fails because when the `swap` loop encounters `5` it swaps it with the `2`, thereby placing the `2` one position too far in the array, and proceeds further up the array without getting the chance to place the `2` correctly. This results in an array starting with `1 1`. And hence the erroneous conclusion that the first missing is `2`.
+Test case #7 fails because when the `swap` loop encounters `5` it swaps it with the `2`, thereby placing the `2` one position too far in the array, and proceeds further up the array without getting the chance to place the `2` correctly. This results in an array starting with `1 1`. And hence the erroneous conclusion that the first missing positive number is `2`.
 
 ---
 
+One way to avoid that is to only swap numbers that should go earlier in the array. By this rule the `5` will not be swapped with the `2`, so the `2` will not be brought to a place where it's not subsequently considered. However, this means that for an arbitrary permutation of the numbers 1 through *n*, about *n*/2 of the array positions will not yield any swapping, and one may need more than *n*/2 swaps to get all the numbers home (so to speak)…
+
+One way to get more swappings is, for any given array position keep on swapping until either the new number there belongs further on in the array, or is a duplicate of the one swapped out.
+
+These ideas yield code that correctly sorts any permutation of 1 through *n*, in place, in O(*n*) time:
+
+*“solution-1.via-placement.cpp”*
+~~~cpp
+#include "testing.hpp"
+#include <algorithm>
+
+using   std::remove_if, std::swap,      // <algorithm>
+        std::string,                    // <string>
+        std::vector;                    // <vector>
+
+auto is_not_positive( const int x ) -> bool { return (x <= 0); };
+
+auto problem::first_missing_positive_in( vector<int>& numbers )
+    -> int
+{
+    const auto it_end = remove_if( numbers.begin(), numbers.end(), is_not_positive );
+    numbers.erase( it_end, numbers.end() );
+    
+    // Place each value v at index v - 1, if that index is earlier in the array.
+    for( int& v: numbers ) {
+        const int i = static_cast<int>( &v - &numbers[0] );
+        while( v - 1 < i ) {
+            const int original_v = v;
+            swap( v, numbers[v - 1] );
+            if( v == original_v ) { break; }
+        }
+    }
+    
+    // If there is now an index i without value i + 1, well that's it.
+    for( const int& v: numbers ) {
+        const int i = int( &v - &numbers[0] );
+        if( v != i + 1 ) {
+            return i + 1;
+        }
+    }
+    
+    // Otherwise first missing is the number beyond the given positive numbers range.
+    const int n =  static_cast<int>( numbers.size() );
+    return n + 1;
+}
+~~~
+
+***It’s far from obvious that this code is correct.***
+
+But first, it succeeds for all the seven specific tests defined here:
+
+>~~~txt
+>    Id     E     A      (where E is Expected and A is Actual)
+>    #1     1     1    ok {}
+>    #2     1     1    ok {0, -1, 0, -2, -3}
+>    #3     2     2    ok {1}
+>    #4     6     6    ok {1, 2, 3, 4, 5}
+>    #5     2     2    ok {3, 4, -1, 1}
+>    #6     3     3    ok {1, 2, 0}
+>    #7     3     3    ok {1, 4, 5, 1, 2}
+>
+>All tests completed successfully.
+>~~~
+
+Secondly, it succeeds in sorting all permutations of all sequences 1 through *n* for *n* in the range 0 through 10 (the last one has 10! = 3 628 800 permutations):
+
+*“solution-1.via-placement.main-with-sorting-testing.cpp”*
+~~~cpp
+// Note: this attempted solution fails e.g. for input (1 4 5 1 2).
+//
+#include "testing.hpp"
+#include <algorithm>
+#include <iostream>
+
+using   std::is_sorted, std::next_permutation,  // <algorithm>
+        std::cout, std::cerr, std::endl,        // <iostream>
+        std::string,                            // <string>
+        std::vector;                            // <vector>
+
+#define IT_RANGE_OF( c )    c.begin(), c.end()
+
+auto main() -> int
+{
+    using utility::to_string;
+
+    for( int n = 0; n <= 10; ++n ) {
+        vector<int> permutation;
+        for( int i = 1; i <= n; ++i ) {
+            permutation.push_back( i );
+        }
+        do {
+            vector<int> data = permutation;
+            const int missing = problem::first_missing_positive_in( data );
+            if( not is_sorted( IT_RANGE_OF( data ) ) ) {
+                cerr    << "!Failed to sort " << to_string( permutation )
+                        << " of length " << n << ","
+                        << " producing " << to_string( data ) << "." << endl;
+                return EXIT_FAILURE;
+            }
+            if( missing != n + 1 ) {
+                cerr    << "!Expected " << n + 1 << " but got " << missing
+                        << " sequence " << to_string( permutation ) << "." << endl;
+                return EXIT_FAILURE;
+            }
+        } while( next_permutation( IT_RANGE_OF( permutation ) ) );
+    }
+    cout << "Sorted all permutations of natural number sequences length 10 and lower." << endl;
+    return EXIT_SUCCESS;
+}
+~~~
+
+>~~~txt
+>Sorted all permutations of natural number sequences length 10 and lower.
+>~~~
+
+This testing strongly *indicates* that the code is correct as a sorting algorithm for permutations of a sequence of 1 through *n*, and it indicates to some degree that it’s a correct solution to the problem of finding the first missing positive number.
+
+asd

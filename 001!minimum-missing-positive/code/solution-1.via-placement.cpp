@@ -1,8 +1,7 @@
 ﻿#include "testing.hpp"
 #include <algorithm>
-#include <utility>
 
-using   std::remove_if,                 // <algorithm>
+using   std::remove_if, std::swap,      // <algorithm>
         std::string,                    // <string>
         std::swap,                      // <utility>
         std::vector;                    // <vector>

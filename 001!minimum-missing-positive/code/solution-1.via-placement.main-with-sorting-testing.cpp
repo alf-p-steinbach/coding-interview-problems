@@ -9,7 +9,7 @@ using   std::is_sorted, std::next_permutation,  // <algorithm>
         std::string,                            // <string>
         std::vector;                            // <vector>
 
-#define RANGE( c )      c.begin(), c.end()
+#define IT_RANGE_OF( c )    c.begin(), c.end()
 
 auto main() -> int
 {
@@ -23,7 +23,7 @@ auto main() -> int
         do {
             vector<int> data = permutation;
             const int missing = problem::first_missing_positive_in( data );
-            if( not is_sorted( RANGE( data ) ) ) {
+            if( not is_sorted( IT_RANGE_OF( data ) ) ) {
                 cerr    << "!Failed to sort " << to_string( permutation )
                         << " of length " << n << ","
                         << " producing " << to_string( data ) << "." << endl;
@@ -34,7 +34,7 @@ auto main() -> int
                         << " sequence " << to_string( permutation ) << "." << endl;
                 return EXIT_FAILURE;
             }
-        } while( next_permutation( RANGE( permutation ) ) );
+        } while( next_permutation( IT_RANGE_OF( permutation ) ) );
     }
     cout << "Sorted all permutations of natural number sequences length 10 and lower." << endl;
     return EXIT_SUCCESS;

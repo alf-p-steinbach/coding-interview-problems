@@ -2,7 +2,7 @@
 //
 #include "testing.hpp"
 #include <algorithm>
-using   std::swap, std::remove_if,      // <algorithm>
+using   std::remove_if, std::swap,      // <algorithm>
         std::vector,                    // <vector>
         std::string;                    // <string>
 
