@@ -100,7 +100,7 @@ numbers.erase( it_end, numbers.end() );
 
 It would be nice if also the noise of possible duplicates could be removed, but when one’s limited to O(1) extra storage that requires sorting (e.g., `std::unique` operates on a sorted sequence), which is generally O(*n*×log *n*).
 
-But wait! Sorting can be faster the more one knows about the data. For example, if one knows that the data is already sorted, then sorting is an O(1) operation. And here, except for the O(1) requirement on extra storage, the integers (or data with keys) 1 through *n*, in some arbitrary order, can be sorted in O(*n*) time by simply placing each value *v* at index *v* in a 1 based array. Or in C++, more naturally, at index *v*−1 in a 0 based array.
+But wait! Sorting can be faster the more one knows about the data. For example, if one knows that the data is already sorted, then sorting is an O(1) operation. And except for the O(1) requirement on extra storage, the integers or data with keys 1 through *n*, in some arbitrary order, can be sorted in O(*n*) time by simply placing each value *v* at index *v* in a 1 based array. Or in C++, more naturally, at index *v*−1 in a 0 based array.
 
 Can that also be done in-place in the original data array?
 
