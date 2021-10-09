@@ -1,4 +1,4 @@
-﻿// Note: this attempted solution fails e.g. for input (1 4 5 1 2).
+﻿// A test of whether “solution-1.via-placement.cpp” sorts correctly.
 //
 #include "testing.hpp"
 #include <algorithm>
