@@ -100,12 +100,69 @@ numbers.erase( it_end, numbers.end() );
 
 It would be nice if also the noise of possible duplicates could be removed, but when one’s limited to O(1) extra storage that requires sorting (e.g., `std::unique` operates on a sorted sequence), which is generally O(*n*×log *n*).
 
-But wait! Sorting can be faster the more one knows about the data. For example, if one knows that the data is already sorted, then sorting is an O(1) operation. And except for the O(1) requirement on extra storage, the integers or data with keys 1 through *n*, in some arbitrary order, can be sorted in O(*n*) time by simply placing each value *v* at index *v* in a 1 based array. Or in C++, more naturally, at index *v*−1 in a 0 based array.
+But wait! Sorting can be faster the more one knows about the data. For example, if one knows that the data is already sorted, then sorting is an O(1) operation. And except for the O(1) requirement on extra storage, the integers or more generally records with keys 1 through *n*, in some arbitrary order, can be sorted in O(*n*) time by simply placing each value *v* at index *v* in a 1 based array. Or in C++, at index *v*−1 in a 0 based array.
 
-Can that also be done in-place in the original data array?
+Can that also be done in place in the original data array?
 
-One idea for that is to scan through the array and just `swap` each encountered number into its proper place in the array. And then, if that results in the numbers 1 through *n* in sequence, then the first missing positive number is *n*+1. And otherwise it’s the first that’s missing within or before the sequence.
+One idea for that is to scan through the array and just `swap` each encountered number into its proper place in the array; using `swap` instead of plain assignment to avoid erasing any number. And then, if that results in the numbers 1 through *n* in sequence at the start of the array, then the first missing positive number is *n*+1. And otherwise the first positive missing is the first that’s missing within or before the sequence.
 
-***This idea is subtly incorrect***, but I posted code equivalent to the following in the belief that it had to be correct since it was simple and “worked” for the examples in the original question, test cases #5 and #6 here:
+***This idea is subtly incorrect***, but it’s simple and it “works” for the examples in the original question (test cases #5 and #6 here), so I posted code equivalent to the following in the belief that it had to be correct:
 
-asd
+*“an-incorrect-solution-via-placement.cpp”*
+~~~cpp
+// Note: this attempted solution fails e.g. for input (1 4 5 1 2).
+//
+#include "testing.hpp"
+#include <algorithm>
+using   std::swap, std::remove_if,      // <algorithm>
+        std::vector,                    // <vector>
+        std::string;                    // <string>
+
+auto is_not_positive( const int x ) -> bool { return (x <= 0); };
+
+auto problem::first_missing_positive_in( vector<int>& numbers )
+    -> int
+{
+    const auto it_end = remove_if( numbers.begin(), numbers.end(), is_not_positive );
+    numbers.erase( it_end, numbers.end() );
+
+    // Place each value v at index v - 1.
+    const int n = static_cast<int>( numbers.size() );
+    for( int& v: numbers ) {
+        if( v <= n ) {
+            swap( v, numbers[v - 1] );
+        }
+    }
+    
+    // If there is now an index i without value i + 1, well (one believes that) that's it.
+    for( const int& v: numbers ) {
+        const int i = static_cast<int>( &v - &numbers[0] );
+        if( v != i + 1 ) {
+            return i + 1;
+        }
+    }
+    
+    // Otherwise first missing is the number beyond the given positive numbers range.
+    return n + 1;
+}
+~~~
+
+The last of the tests here is was the first I found where the above code fails:
+
+>~~~txt
+>    Id     E     A      (where E is Expected and A is Actual)
+>    #1     1     1    ok {}
+>    #2     1     1    ok {0, -1, 0, -2, -3}
+>    #3     2     2    ok {1}
+>    #4     6     6    ok {1, 2, 3, 4, 5}
+>    #5     2     2    ok {3, 4, -1, 1}
+>    #6     3     3    ok {1, 2, 0}
+>    #7     3     2  FAIL {1, 4, 5, 1, 2}
+>
+>!Test case #7 failed: expected 3 but got actual result 2.
+>~~~
+
+Test case #7 fails because when the `swap` loop encounters `5` it swaps it with the `2`, thereby placing the `2` one position too far in the array, and proceeds further up the array without getting the chance to place the `2` correctly. This results in an array starting with `1 1`. And erroneous conclusion that the first missing is `2`.
+
+---
+
