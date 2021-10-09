@@ -162,7 +162,7 @@ The last of the tests here is included because it was the first I found where th
 >!Test case #7 failed: expected 3 but got actual result 2.
 >~~~
 
-Test case #7 fails because when the `swap` loop encounters `5` it swaps it with the `2`, thereby placing the `2` one position too far in the array, and proceeds further up the array without getting the chance to place the `2` correctly. This results in an array starting with `1 1`. And erroneous conclusion that the first missing is `2`.
+Test case #7 fails because when the `swap` loop encounters `5` it swaps it with the `2`, thereby placing the `2` one position too far in the array, and proceeds further up the array without getting the chance to place the `2` correctly. This results in an array starting with `1 1`. And hence the erroneous conclusion that the first missing is `2`.
 
 ---
 
