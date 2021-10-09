@@ -98,7 +98,7 @@ const auto it_end = remove_if( numbers.begin(), numbers.end(), is_not_positive )
 numbers.erase( it_end, numbers.end() );
 ~~~
 
-It would be nice if also the noise of possible duplicates could be removed, but when one’s limited to O(1) extra storage that requires sorting (e.g., `std::unique` operates on a sorted sequence), which is generally O(*n*×log *n*).
+It would be nice if also the noise of possible duplicates could be removed, but for the general case with numbers that can be larger than the array size, when one’s limited to O(1) extra storage eliminating duplicates requires sorting (e.g., `std::unique` operates on a sorted sequence), which is generally O(*n*×log *n*).
 
 But wait! Sorting can be faster the more one knows about the data. For example, if one knows that the data is already sorted, then sorting is an O(1) operation. And except for the O(1) requirement on extra storage, the integers or more generally records with keys 1 through *n*, in some arbitrary order, can be sorted in O(*n*) time by simply placing each value *v* at index *v* in a 1 based array. Or in C++, at index *v*−1 in a 0 based array.
 
