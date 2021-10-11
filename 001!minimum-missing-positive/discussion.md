@@ -41,6 +41,7 @@ The testing checks and reports the results for the following array contents:
 |       #6 |              3 | 1  2  0          |
 |       #7 |              3 | 1  4  5  1  2    |
 
+The big O behavior is however not checked.
 
 ## Discussion with a “not the intended” solution.
 
@@ -85,7 +86,7 @@ The simple test framework provided here doesn’t test the big-O behavior, so it
 >All tests completed successfully.
 >~~~
 
-O(*n*×log *n*) time won’t do for a solution. But the above code is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever data you throw at it. And so this code ***can be used as a reference*** for testing and gaining confidence in other solution attempts, for example for testing with longer sequences of dynamically generated random numbers.
+But the sorting uses O(*n*×log *n*) time, which won’t do for a solution. On the third and gripping hand the above code is sufficiently simple to believe that it produces the correct answer for any arbitrary array contents, whatever data you throw at it. And so this code ***can be used as a reference*** for testing and gaining confidence in other solution attempts, for example for testing with longer sequences of dynamically generated random numbers.
 
 This is a general technique for big O challenges.
 
